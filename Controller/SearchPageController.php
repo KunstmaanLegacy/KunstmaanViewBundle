@@ -31,7 +31,7 @@ class SearchPageController extends Controller
         }
         
         $pages->setCurrentPage($page);
-                      
+        
         $request = $this->getRequest();
         $locale = $request->getSession()->getLocale();
         $nodeMenu = new NodeMenu($this->container, $locale, null);

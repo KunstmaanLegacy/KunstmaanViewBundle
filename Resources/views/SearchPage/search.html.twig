@@ -19,7 +19,33 @@
 		{% endif %}	
 			<ul class="clearfix">
 				{% for i in 1..results.getNbPages()%}
-					<li {% if i == results.getCurrentPage() %}class="active"{% endif %}><a href="{{ path(app.request.attributes.get('_route'), { 'query': query, 'page': i }) }}">{{ i }}</a></li>
+					{% if results.getNbPages()>5 %}
+						{% if results.getCurrentPage() == 1 or results.getCurrentPage() == 2 or results.getCurrentPage() == 3 %}
+							{% if i == 1 or i == 2 or i == 3 or i==results.getCurrentPage()+1 or i == results.getNbPages() %}
+								<li {% if i == results.getCurrentPage() %}class="active"{% endif %}><a href="{{ path(app.request.attributes.get('_route'), { 'query': query, 'page': i }) }}">{{ i }}</a></li>
+							{% else %}
+								{% if hellip is not defined %}
+									{% set hellip = true %}
+									<li class="hellip">...</li>
+								{% endif %}	
+							{% endif %}
+						{% else %}
+							{% if i==1 or i == results.getCurrentPage()-1 or i == results.getCurrentPage()+1 or i == results.getCurrentPage() or i == results.getNbPages()%}
+								<li {% if i == results.getCurrentPage() %}class="active"{% endif %}><a href="{{ path(app.request.attributes.get('_route'), { 'query': query, 'page': i }) }}">{{ i }}</a></li>
+							{% else %}
+								{% if i < results.getCurrentPage() and hellipleft is not defined %}
+									{% set hellipleft = true %}
+									<li class="hellip">...</li>
+								{% endif %}
+								{% if i > results.getCurrentPage() and hellipright is not defined %}
+									{% set hellipright = true %}
+									<li class="hellip">...</li>
+								{% endif %}
+							{% endif %}	
+						{% endif %}
+					{% else %}
+						<li {% if i == results.getCurrentPage() %}class="active"{% endif %}><a href="{{ path(app.request.attributes.get('_route'), { 'query': query, 'page': i }) }}">{{ i }}</a></li>
+					{% endif %}
 				{% endfor %}
 			</ul>
     	{% if results.hasNextPage() %}
