@@ -100,7 +100,9 @@ class SlugController extends Controller
         $canViewPage = $permissionManager->hasPermision($node, $currentUser, 'read', $em);
 
         if($canViewPage) {
-            $nodeMenu = new NodeMenu($this->container, $locale, $node);
+            $menuService = $this->get('kunstmaan_view.menu.front.service');
+
+            $nodeMenu = $menuService->getNodeMenu($this->container, $locale, $node);
 
         	//render page
             $pageparts = array();
