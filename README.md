@@ -1,3 +1,5 @@
+# THIS REPO IS DEPRECATED: see KunstmaanNodeBundle.
+
 KunstmaanViewBundle by Kunstmaan
 =================================
 
